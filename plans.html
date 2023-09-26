@@ -1,0 +1,239 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+.detalles-section {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+}
+
+.detalles-section.active {
+    max-height: 1500px;
+}
+</style>
+<div class="container mt-5">
+    <h1 class="text-center mb-5">Elige el plan que mejor se adapte a tus necesidades</h1>
+    <div class="row">
+        {% for plan in plans %}
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    {{ plan.name }}
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ plan.description }}</p>
+                    <ul>
+                        <li>Hasta {{ plan.max_admins }} administradores.</li>
+                        <li>Registro de hasta {{ plan.max_clients }} clientes.</li>
+                        <li>Registro de hasta {{ plan.max_garment_types }} tipos de prendas.</li>
+                        <li>Registro de hasta {{ plan.max_operators }} operarios.</li>
+                        <li>Gestión de hasta {{ plan.max_remissions_per_month }} remisiones por mes.</li>
+                        <!-- ... otras características ... -->
+                        {% if plan.basic_reports %}
+                            <li>Reportes básicos.</li>
+                        {% endif %}
+                        {% if plan.advanced_reports %}
+                            <li>Reportes avanzados.</li>
+                        {% endif %}
+                        {% if plan.premium_reports %}
+                            <li>Reportes premium.</li>
+                        {% endif %}
+                        {% if plan.basic_simulations %}
+                            <li>Simulaciones básicas.</li>
+                        {% endif %}
+                        {% if plan.advanced_simulations %}
+                            <li>Simulaciones avanzadas.</li>
+                        {% endif %}
+                        {% if plan.basic_financial_management %}
+                            <li>Gestión financiera básica.</li>
+                        {% endif %}
+                        {% if plan.advanced_financial_management %}
+                            <li>Gestión financiera avanzada.</li>
+                        {% endif %}
+                        {% if plan.basic_payroll_management %}
+                            <li>Gestión de nómina básica.</li>
+                        {% endif %}
+                        {% if plan.advanced_payroll_management %}
+                            <li>Gestión de nómina avanzada.</li>
+                        {% endif %}
+                        {% if plan.complete_payroll_management %}
+                            <li>Gestión de nómina completa.</li>
+                        {% endif %}
+                        {% if plan.inventory_management %}
+                            <li>Gestión de inventario.</li>
+                        {% endif %}
+                        {% if plan.production_management %}
+                            <li>Gestión de producción.</li>
+                        {% endif %}
+                        {% if plan.basic_remission_management %}
+                            <li>Gestión básica de remisiones.</li>
+                        {% endif %}
+                        {% if plan.advanced_remission_management %}
+                            <li>Gestión avanzada de remisiones.</li>
+                        {% endif %}
+                        {% if plan.premium_remission_management %}
+                            <li>Gestión premium de remisiones.</li>
+                        {% endif %}
+                        {% if plan.automations %}
+                            <li>Automatizaciones.</li>
+                        {% endif %}
+                        {% if plan.basic_support %}
+                            <li>Soporte básico.</li>
+                        {% endif %}
+                        {% if plan.integral_support %}
+                            <li>Soporte integral.</li>
+                        {% endif %}
+                        {% if plan.priority_support %}
+                            <li>Soporte prioritario.</li>
+                        {% endif %}
+                        {% if plan.has_ai_dashboard %}
+                            <li>Dashboard con IA.</li>
+                        {% endif %}
+                        {% if plan.real_time_graphics %}
+                            <li>Gráficos en tiempo real.</li>
+                        {% endif %}
+                        {% if plan.expense_management %}
+                            <li>Gestión de gastos.</li>
+                        {% endif %}
+                        {% if plan.invoice_generation %}
+                            <li>Generación de facturas.</li>
+                        {% endif %}
+                        {% if plan.account_control %}
+                            <li>Control de cuentas.</li>
+                        {% endif %}
+                        {% if plan.detailed_payment_registry %}
+                            <li>Registro detallado de pagos.</li>
+                        {% endif %}
+                    </ul>
+                    <p><strong>Precio:</strong> COP {{ plan.price }}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'registro' %}?plan_id={{ plan.id }}" class="btn btn-primary">Registrarse</a>
+                </div>
+                <div class="card-footer">
+                    <a href="#detalles-{{ plan.id }}" class="btn btn-primary btn-detalles">Ver Detalles</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <!-- Aquí podrías añadir las secciones de detalles para cada plan, fuera del bucle for -->
+    <!-- Sección de detalles de cada plan -->
+<div id="detalles-1" class="mt-5 detalles-section">
+    <h2>Producto Estándar:</h2>
+    <ul>
+        <li><strong>Usuarios y Autenticación:</strong></li>
+        <ul>
+            <li>Registro y autenticación de usuarios.</li>
+            <li>Administración de perfiles.</li>
+            <li>Restablecimiento de contraseña.</li>
+        </ul>
+        <li><strong>Gestión de Operarios:</strong></li>
+        <ul>
+            <li>Creación y administración de operarios.</li>
+            <li>Registro de trabajo por parte de los operarios.</li>
+            <li>Gestión y pago básico de nómina.</li>
+        </ul>
+        <li><strong>Gestión de Clientes:</strong></li>
+        <ul>
+            <li>Creación y administración de clientes.</li>
+            <li>Creación y administración de remisiones.</li>
+        </ul>
+        <li><strong>Productos y Precios:</strong></li>
+        <ul>
+            <li>Creación y administración de tipos de prendas.</li>
+        </ul>
+        <li><strong>Informes:</strong></li>
+        <ul>
+            <li>Informes básicos de ventas y producción.</li>
+        </ul>
+    </ul>
+</div>
+
+<div id="detalles-2" class="mt-5 detalles-section">
+    <h2>Producto Avanzado:</h2>
+    <p>(incluye todas las características del Estándar)</p>
+    <ul>
+        <li><strong>Gestión Financiera:</strong></li>
+        <ul>
+            <li>Control de cuentas por cobrar y por pagar.</li>
+            <li>Registro de adelantos y bonificaciones a operarios.</li>
+            <li>Gestión avanzada de nómina con bonificaciones y deducciones.</li>
+        </ul>
+        <li><strong>Gestión de Inventario:</strong></li>
+        <ul>
+            <li>Registro y administración de prendas desperdiciadas.</li>
+            <li>Simulación de costos de producción.</li>
+        </ul>
+        <li><strong>Gestión de Producción:</strong></li>
+        <ul>
+            <li>Registro de patrones de corte.</li>
+            <li>Registro de mesas de corte.</li>
+        </ul>
+        <li><strong>Informes Avanzados:</strong></li>
+        <ul>
+            <li>Informes detallados de ventas, producción y finanzas.</li>
+        </ul>
+    </ul>
+</div>
+
+<div id="detalles-3" class="mt-5 detalles-section">
+    <h2>Producto Business:</h2>
+    <p>(incluye todas las características del Estándar y Avanzado)</p>
+    <ul>
+        <li><strong>Gestión de Pago:</strong></li>
+        <ul>
+            <li>Registro detallado de pagos a operarios.</li>
+            <li>Generación de facturas para clientes.</li>
+            <li>Registro de gastos.</li>
+            <li>Gestión integral de nómina con diferentes métodos de pago y reportes detallados.</li>
+        </ul>
+        <li><strong>Simulaciones Avanzadas:</strong></li>
+        <ul>
+            <li>Simulación de rentabilidad.</li>
+            <li>Simulación de eficiencia en la producción.</li>
+        </ul>
+        <li><strong>Automatizaciones:</strong></li>
+        <ul>
+            <li>Envío automatizado de facturas por correo electrónico y WhatsApp.</li>
+            <li>Recordatorios automatizados para cuentas por cobrar y por pagar.</li>
+        </ul>
+        <li><strong>Informes Premium:</strong></li>
+        <ul>
+            <li>Informes personalizados según las necesidades del dueño de la empresa.</li>
+            <li>Exportación de informes a diferentes formatos (PDF, Excel, etc.).</li>
+        </ul>
+        <li><strong>Dashboard de Inteligencia Artificial:</strong></li>
+        <ul>
+            <li>Visualización gráfica en tiempo real de todos los parámetros medibles con predicciones.</li>
+            <li>Análisis y proyecciones basados en IA.</li>
+        </ul>
+    </ul>
+</div>
+
+<div id="complemento-adicional" class="mt-5 detalles-section">
+    <h2>Complemento Adicional:</h2>
+    <ul>
+        <li><strong>Dashboard de Inteligencia Artificial</strong> (para planes Estándar y Avanzado):</li>
+        <ul>
+            <li>Visualización gráfica en tiempo real de todos los parámetros medibles.</li>
+            <li>Análisis y proyecciones basados en IA.</li>
+        </ul>
+    </ul>
+</div>
+
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll('.btn-detalles').forEach(button => {
+        button.addEventListener('click', () => {
+            const targetId = button.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            targetSection.classList.toggle('active');
+        });
+    });
+});
+</script>
+{% endblock %}
+	

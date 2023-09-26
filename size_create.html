@@ -1,0 +1,21 @@
+{% extends 'base_generic.html' %}
+<!-- your_app/templates/your_app/size_create.html -->
+{% block content %}
+  <h2>Create New Size</h2>
+  
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create</button>
+  </form>
+  
+  <a href="{% url 'size_list' %}">Cancel</a>
+{% endblock %}
+
+
+
+
+
+
+
+

@@ -1,0 +1,442 @@
+
+<head>
+{% extends 'base_generic_ft.html' %}
+
+{% load bootstrap4 %}	
+{% load static %}
+</head>
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Agregar Remisión</h2>
+    <form method="post" class="g-3" id="addgarmenttypeForm">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+    <label for="{{ form.number.id_for_label }}">Numero de remision</label>
+    {{ form.number }}
+</div>
+<div class="mb-3">
+    <label for="{{ batch_form.number.id_for_label }}">Número de Tanda</label>
+    {{ batch_form.number }}
+</div>
+
+    </form>
+</div>
+
+
+        <div class="mb-3">
+    <label for="garment_type">Tipo de prenda</label> {{ form.garment_type }}<br/>
+    <div id="fabric_type_display"></div> <!-- Nuevo elemento para mostrar el tipo de tela -->
+    <button type="button" class="btn btn-secondary ms-2" data-bs-toggle="modal" data-bs-target="#addGarmentTypeModal">
+        Nuevo tipo de prenda
+    </button>
+</div>
+        <div class="mb-3">
+            <label for="client">Cliente</label> {{ form.client }}
+			<br/>
+            <button type="button" class="btn btn-secondary ms-2" data-bs-toggle="modal" data-bs-target="#addClientModal">
+                Insertar un nuevo cliente
+            </button>
+        </div>
+        <div class="mb-3">
+            <label for="unit_value">Precio unitario de la prenda</label>{{ form.unit_value }}
+        </div>
+		
+        <div class="mb-4">
+            <label for="total_value">Valor total de la remision</label>{{ form.total_value }}
+			<br/>
+			<button type="button" class="btn btn-secondary" id="calculate-total">Calcular Valor</button>
+
+        </div>
+
+        <h5 class="mb-3">Detalles de la Remisión</h5>
+
+{{ formset.management_form }}
+<div id="form-set">
+    {% for form in formset %}
+        <div class="form-group form-set">
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="color_feature_{{ forloop.counter0 }}">Color</label>
+                    {{ form.color_feature }}
+                </div>
+                <div class="col-md-3">
+                    <label for="size_{{ forloop.counter0 }}">Talla</label>
+                    {{ form.size }}
+                </div>
+                <div class="col-md-4">
+                    <label for="quantity_{{ forloop.counter0 }}">Cantidad de prendas por talla</label>
+                    {{ form.quantity }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+	
+
+<div class="row"><br/>
+    <div class="col-md-12">
+        <button type="button" class="btn btn-secondary add-form-row" id="add-size-button">Agregar talla</button>
+    </div>
+	
+	
+	</div>
+<BR/>
+<div style="display:none;" id="empty-form">
+    {{ formset.empty_form }}
+</div>
+</script>
+        <button type="submit" class="btn btn-primary">Agregar Remisión</button>
+    </form>
+
+
+
+<!-- Los modales deben estar fuera del bucle for y del formulario -->
+<!-- Modal para agregar un nuevo tipo de prenda -->
+<div class="modal fade" id="addGarmentTypeModal" tabindex="-1" aria-labelledby="addGarmentTypeModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addGarmentTypeModalLabel">Agregar Nuevo Tipo de Prenda</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="addgarmenttypeForm" method="POST">
+            {% csrf_token %}
+            <div class="modal-body">
+          <!-- Aquí irá el formulario para agregar un nuevo tipo de prenda -->
+           <!-- Aquí irá el formulario para agregar un nuevo tipo de prenda -->
+  <label for="name">Nombre de la prenda</label> {{ garment_type_form.name }}<br/>
+<label for="description">Descripcion del producto</label> {{ garment_type_form.description }}<br/>
+<label for="product_code">Codigo del producto</label> {{ garment_type_form.product_code }}<br/>
+<label for="base_price_COP">Precio de la prenda</label> {{ garment_type_form.base_price_COP }}<br/>
+<label for="fabric_type">Tipo de tela</label> {{ garment_type_form.fabric_type }}
+<br/>
+<label for="operation_type">Operaciones requeridas</label>
+    <div id="selected-operations-container"></div>
+    <input type="hidden" name="operations" id="operations-input" value="">
+    <select id="operation_type" name="operation_type_selector" class="form-select mb-2">
+        {% for operation in operations %}
+            <option value="{{ operation.id }}">{{ operation.name }}</option>
+        {% endfor %}
+    </select>
+    <button type="button" id="add-operation-button" class="btn btn-primary mb-2">Añadir operación</button>
+
+<br/>
+              <label for="new_distinctive_features">Características distintivas de la prenda</label>
+<div id="features-container" class="mb-2">
+    <input type="text" name="new_distinctive_features" class="form-control" placeholder="Ingrese una nueva característica distintiva">
+</div>
+<button type="button" class="btn btn-small btn-primary mb-2" id="add-new-feature">Añadir otro</button>
+<div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+      
+<!-- Modal para insertar un nuevo cliente -->
+<div class="modal fade" id="addClientModal" tabindex="-1" aria-labelledby="addClientModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addClientModalLabel">Insertar Nuevo Cliente</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+		<form id="clientForm" action="{% url 'add_client' %}" method="post">
+
+        {% csrf_token %}
+        <div class="modal-body">
+          <!-- Aquí irá el formulario para insertar un nuevo cliente -->
+          {{ client_form }}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<!-- Importando jQuery (versión completa) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>   
+<!-- Importando Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+// Tu código JavaScript
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const operationSelect = document.getElementById('operation_type');
+    const addOperationButton = document.getElementById('add-operation-button');
+    const selectedOperationsContainer = document.getElementById('selected-operations-container');
+    const operationsInput = document.getElementById('operations-input');
+
+    function updateOperationsInput() {
+        const selectedOperations = document.querySelectorAll('.selected-operation');
+        const selectedOperationIds = Array.from(selectedOperations).map(op => op.getAttribute('data-operation-id'));
+        operationsInput.value = selectedOperationIds.join(',');
+    }
+
+    addOperationButton.addEventListener('click', () => {
+        const selectedOption = operationSelect.options[operationSelect.selectedIndex];
+
+        if(!selectedOption || selectedOption.value === "") {
+            console.error('No option is selected');
+            return;
+        }
+
+        const operationId = selectedOption.value;
+        const operationName = selectedOption.text;
+
+        const operationDiv = document.createElement('div');
+        operationDiv.classList.add('selected-operation');
+        operationDiv.setAttribute('data-operation-id', operationId);
+        operationDiv.textContent = operationName;
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'X';
+        deleteButton.classList.add('close-button');
+        deleteButton.addEventListener('click', () => {
+            operationDiv.remove();
+            updateOperationsInput();
+        });
+        operationDiv.appendChild(deleteButton);
+        selectedOperationsContainer.appendChild(operationDiv);
+
+        updateOperationsInput();
+    });
+});
+
+document.querySelector('#addgarmenttypeForm').addEventListener('submit', (event) => {
+    // Imprime las operaciones seleccionadas en la consola del navegador para depuración
+    console.log('Selected operations IDs:', document.getElementById('operations-input').value);
+});
+
+
+document.getElementById('add-new-feature').addEventListener('click', function() {
+    var container = document.getElementById('features-container');
+    var input = document.createElement('input');
+    input.type = 'text';
+    input.name = 'new_distinctive_features';
+    input.className = 'form-control mb-2';  // Añade clases de Bootstrap aquí
+    input.placeholder = 'Ingrese una nueva característica distintiva';
+    container.appendChild(input);
+});
+
+function createNewForm(formIdx) {
+    // Copia las opciones del primer campo de selección
+    var sizeOptions = $("#id_rsq-0-size").html();
+
+    return `
+		 <div class="form-group form-set">
+            <div class="row">
+                <!-- ... otros campos -->
+                
+        <div class="form-group form-set">
+            <div class="row">
+			<div class="col-md-3 form-group">
+                    <label>Color:</label>
+                    <select name="rsq-${formIdx}-color_feature" id="id_rsq-${formIdx}-color_feature" class="form-control">
+                        <!-- Aquí deberás generar las opciones de colores disponibles -->
+                    </select>
+                </div>
+                <div class="col-md-3 form-group">
+                    <label>Talla:</label>
+                    <select name="rsq-${formIdx}-size" id="id_rsq-${formIdx}-size" class="form-control">
+                        ${sizeOptions}
+                    </select>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label>Cantidad:</label>
+                    <input type="text" name="rsq-${formIdx}-quantity" id="id_rsq-${formIdx}-quantity" class="form-control">
+					<br/>
+					</div>
+                <div class="col-md-5 form-group">
+                    <button type="button" class="btn btn-danger remove-form-row text-nowrap">Borrar Talla</button>
+                </div>
+            </div>
+			
+        </div>
+    `;
+}
+
+</script>
+<script>
+
+$(document).ready(function(){
+    // Obtén el div que contiene el formset
+    var formsetContainer = $('#form-set');
+    
+    // Obtén el formulario vacío y su índice
+    var emptyForm = $('#empty-form').html();
+    var formIdx = {{ formset|length }};
+
+    // Añade un nuevo formulario cada vez que se hace clic en el botón "Agregar talla"
+    $('#add-size-button').click(function() {
+        var newForm = createNewForm(formIdx);
+        formsetContainer.append(newForm);
+        formIdx++;
+        $('#id_rsq-TOTAL_FORMS').val(formIdx);  // Asegúrate de que estás usando el prefijo correcto aquí
+    });  
+	
+	$('#add-new-feature').click(function(){
+        var newInput = $('<textarea name="new_distinctive_features" rows="5" placeholder="Ingrese una nueva característica distintiva"></textarea>');
+        $(this).before(newInput);
+    });
+	
+});
+
+    function updateElementIndex(el, prefix, ndx) {
+        el.setAttribute('id', prefix + '-' + ndx);
+        el.setAttribute('name', prefix + '-' + ndx);
+    }
+
+    function addForm(btn, prefix) {
+        var formIdx = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
+        $('#form-set').append($('#empty-form').html().replace(/__prefix__/g, formIdx));
+        $('#id_' + prefix + '-TOTAL_FORMS').val(formIdx + 1);
+        return false;
+    }
+
+    function deleteForm(prefix, btn) {
+        var totalForms = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
+        if (totalForms > 1) {
+            btn.closest('.form-set').remove();
+            var forms = $('.form-set');
+            $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
+            for (var i = 0, formCount = forms.length; i < formCount; i++) {
+                $(forms.get(i)).find(':input').each(function() {
+                    updateElementIndex(this, prefix, i);
+                });
+            }
+        }
+        return false;
+    }
+
+    $('#form-set').on('click', '.add-form-row', function() {
+		return addForm(this, 'form');
+    });
+    
+    $('#form-set').on('click', '.remove-form-row', function() {
+    $(this).parents('.form-group').remove();
+    formIdx--;
+    $('#id_rsq-TOTAL_FORMS').val(formIdx);  // Asegúrate de que estás usando el prefijo correcto aquí
+});
+
+    
+    // Script para actualizar el precio unitario basado en el tipo de prenda seleccionado
+    $('#id_garment_type').change(function(){
+    var garmentTypeId = $(this).val();
+    if(garmentTypeId) {
+        $.ajax({
+            url: '/get_unit_price/' + garmentTypeId + '/',
+            method: 'GET',
+            success: function(data) {
+                $('#id_unit_value').val(data.unit_price);
+                
+                // Añadir el tipo de tela a un elemento HTML
+                $('#fabric_type_display').html("Tipo de tela: " + data.fabric_type);
+                
+                // Añadir operaciones requeridas (Asegúrate de que 'data.operations' contenga las operaciones requeridas)
+                if(data.operations && data.operations.length > 0) {
+                    let operationsList = "<span style='color:red;'>Operaciones requeridas:</span><ul style='color:red;'>";
+                    data.operations.forEach(function(operation) {
+    operationsList += "<li>" + operation + "</li>";
+});
+
+                    operationsList += "</ul>";
+                    $('#fabric_type_display').append(operationsList);
+                }
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
+});	
+
+    // Scripts para manejar la sumisión de formularios modales
+    $('#clientForm').on('submit', function(event){
+        event.preventDefault();
+        $.ajax({
+            url: "{% url 'add_client' %}",
+            method: "POST",
+            data: $(this).serialize(),
+            success: function(data) {
+                console.log(data);
+                if(data.message === "Cliente agregado exitosamente." || data.message === "Cliente existente agregado exitosamente.") {
+                    $('#addClientModal').modal('hide');
+                    $('#id_client').append(new Option(data.name, data.id, true, true));
+                } else {
+                    console.error('Error: ' + data.message);
+                }
+            },
+            error: function(err){
+                console.error(err);
+            }
+        });
+    });
+
+    $('#addgarmenttypeForm').on('submit', function(event){
+        event.preventDefault();
+        $.ajax({
+            url: "{% url 'add_garment_type' %}",
+            method: "POST",
+            data: $(this).serialize(),
+            success: function(data){
+                console.log(data);
+                if(data.message === "Tipo de prenda añadido exitosamente.") {
+                    $('#addGarmentTypeModal').modal('hide');
+                    $('#id_garment_type').append(new Option(data.name, data.id, true, true));
+                } else {
+                    console.error('Error: ' + data.message);
+                }
+            },
+            error: function(err){
+                console.error(err);
+            }
+        });
+    });
+
+        function calculateTotal() {
+        let totalQuantity = 0;
+        let unitValue = parseFloat($('#id_unit_value').val());
+        console.log("Unit value:", unitValue);  // Agrega esta línea para depurar
+        
+        $('.form-set').each(function() {
+            let quantity = parseInt($(this).find('input[name$="quantity"]').val());
+            if (!isNaN(quantity)) {
+                totalQuantity += quantity;
+            }
+        });
+		
+		 console.log("Total quantity:", totalQuantity);  // Agrega esta línea para depurar
+
+        let totalValue = totalQuantity * unitValue;
+        $('#id_total_value').val(totalValue.toFixed(2));
+        return true;
+    }
+	$('#calculate-total').click(calculateTotal);  // Aquí se está añadiendo el manejador de eventos
+    $('form').on('submit', calculateTotal);
+});
+</script>
+
+{% endblock %}
+
+
+
+

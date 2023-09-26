@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Administradores de Fábrica</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Dirección</th>
+            <th>Fecha de Nacimiento</th>
+            <!-- Agrega más columnas según los campos que quieras mostrar -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for admin in factory_admins %}
+        <tr>
+            <td>{{ admin.email }}</td>
+            <td>{{ admin.phone_number }}</td>
+            <td>{{ admin.address }}</td>
+            <td>{{ admin.date_of_birth }}</td>
+            <!-- Asegúrate de agregar más campos aquí según lo que quieras mostrar -->
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No hay administradores de fábrica registrados.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

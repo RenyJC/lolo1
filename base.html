@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.2/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/carousel/">
+	<link rel="stylesheet" href="{% static 'bootstrap-icons/bootstrap-icons.css' %}">
+    <link href="{% static 'css/carousel.css' %}" rel="stylesheet">
+<style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <title>Soluciones Contrex</title>
+</head>
+<body>
+		<header class="p-3 bg-dark text-white">
+        <div class="container">
+		<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+		
+           
+    <img src="{% static 'soluciones_textiles/img/logo.png' %}" alt="Logo de Soluciones Textiles" style="height: 75px; vertical-align: left;" />
+    
+
+            
+            
+		  <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="{% url 'inicio' %}" class="nav-link px-2 text-white">Home</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">Servicios</a></li>
+          <li><a href="{% url 'show_plans' %}" class="nav-link px-2 text-white">Planes</a></li>
+		  <li><a href="#" class="nav-link px-2 text-white">Directorio</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">Nosotros</a></li>
+        </ul>
+		<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+          <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+        </form>
+		<div class="text-end ms-auto mb-2 mb-lg-0">
+          <button type="button" class="btn btn-outline-light me-2"><a href="{% url 'login' %}">Entrar</a></button>
+          <button type="button" class="btn btn-warning"><a href="{% url 'show_plans' %}">Registrarse</a></button>
+        </div>
+               
+            </div>
+        </div>
+		</div>
+    </header>
+
+    <main class="container">
+        <!-- Contenido principal -->
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% block content %}
+        {% endblock %}
+		
+    </main>
+	<br/>
+<div class="container">
+  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+    <p class="col-md-4 mb-0 text-muted">&copy; 2020 Infinia Innovation, Inc</p>
+      <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+        <img src="{% static 'soluciones_textiles/img/infinia.png' %}" alt="Logo de Soluciones Textiles" style="height: 65px; vertical-align: left;" />
+      </a>
+<ul class="nav col-md-4 justify-content-end">
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Servicios</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Planes</a></li>
+	  <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Directorio</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+    </ul>
+  </footer>
+</div>
+    <!-- Scripts de jQuery, Popper.js y Bootstrap JS (asegúrate de poner jQuery antes de Bootstrap JS) -->
+	<!-- Añade esta línea al principio de tus scripts -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+{% extends 'base_generic_ft.html' %}
+
+{% load bootstrap4 %}
+
+{% load static %}
+
+{% block content %}
+<body>
+<h3 class="font-weight-bold">Insertar Remisión</h3> 
+<p class="fst-italic fw-lighter">La insercion de una Remisión es un proceso compuesto de varias etapas.</p>
+<p class="text-muted" style="margin-top: 2px;">Para continuar la Remisión, haga clic en:</p><div class="badge bg-primary text-wrap" style="width: 6rem; margin-top: 2px;">
+  Siguiente</div>
+<div class="container mt-5">
+<form id="remissionForm" method="POST" action="{% url 'add_remission' %}">
+    {% csrf_token %}  
+
+<!-- Número de Remisión -->
+<div class="form-group">
+<label for="remissionNumber">Número de Remisión</label>
+<input type="text" class="form-control" id="remissionNumber" name="remissionNumber">
+</div>
+
+<!-- Cliente -->
+<div class="form-group">
+<label for="client">Cliente</label>
+<select class="form-control" id="client" name="client">
+    {% for client in clients %}
+        <option value="{{ client.id }}">{{ client.name }}</option>  <!-- Asegúrate de usar los nombres correctos de los campos de tu modelo -->
+    {% endfor %}
+</select>
+<button type="button" class="btn btn-primary" style="margin-top: 10px;" data-toggle="modal" data-target="#addClientModal">Nuevo Cliente</button>
+<button type="button" class="btn btn-primary ml-auto" style="margin-top: 10px;" onclick="window.location.href='{% url 'add_remission_step2' %}'">Siguiente</button>
+
+</div>
+
+<!-- Modal para agregar cliente -->
+<div class="modal fade" id="addClientModal" tabindex="-1" aria-labelledby="addClientModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="addClientModalLabel">Agregar Cliente</h5>
+<button type="button" class="close close-button" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+</form>
+
+<form id="addClientForm">
+    {% csrf_token %}
+
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="name">Nombre</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="NIT">NIT</label>
+            <input type="text" class="form-control" id="NIT" name="NIT" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="address">Dirección</label>
+            <input type="text" class="form-control" id="address" name="address" required>
+        </div>
+        <div class="form-group">
+            <label for="phone_number">Teléfono</label>
+            <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+        </div>
+        <button type="button" class="btn btn-primary" id="saveClientButton">Guardar</button>
+    </div>
+</form>
+<!-- Importando jQuery (versión completa) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>   
+<!-- Importando Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    const form = document.getElementById('addClientForm');
+    const clientSelect = document.getElementById('client');
+
+    if (form) {
+        document.getElementById('saveClientButton').addEventListener('click', (event) => {
+            event.preventDefault();  // Evita que el formulario se envíe
+
+            const formData = new FormData(form);
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+            fetch('{% url "add_client" %}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                },
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                // Cerrar el modal usando JavaScript puro
+                document.getElementById('addClientModal').classList.remove('show');
+                document.body.classList.remove('modal-open');
+                document.querySelector('.modal-backdrop').remove();
+
+                // Agregar el nuevo cliente a la lista desplegable
+                const option = document.createElement('option');
+                option.value = data.id;
+                option.text = data.name;
+                clientSelect.add(option, 0);  // Agrega el nuevo cliente al principio de la lista
+                clientSelect.value = data.id;  // Selecciona el nuevo cliente en la lista desplegable
+				
+				// Resetear el formulario
+                form.reset();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    } else {
+        console.error('El formulario no se encontró');
+    }
+});
+</script>
+
+
+</div>
+</div>
+</div>
+</div>
+</body>
+
+</html>
+
+
+{% endblock %}

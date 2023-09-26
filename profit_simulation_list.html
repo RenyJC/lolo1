@@ -1,0 +1,11 @@
+{% extends 'base_generic.html' %}
+
+{{% block content %}
+  <h2>Lista de Simulaciones de Ganancia</h2>
+  <ul>
+    {% for simulation in simulations %}
+      <li>{{ simulation.id }}: {{ simulation.garment_type.name }} - {{ simulation.projected_profit_COP }} COP</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+

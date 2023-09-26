@@ -1,0 +1,10 @@
+{% extends 'base_generic_ft.html' %}
+
+{% block content %}
+  <h1>Eliminar Servicio de Corte</h1>
+  <form method="post">
+    {% csrf_token %}
+    <p>¿Estás seguro de que deseas eliminar el servicio de corte {{ object.cutting_number }}?</p>
+    <button type="submit">Eliminar</button>
+  </form>
+{% endblock %}

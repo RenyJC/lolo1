@@ -1,0 +1,10 @@
+{% extends 'base_generic_ft.html' %}
+
+{% block content %}
+  <h1>Listado de Servicios de Corte</h1>
+  <ul>
+    {% for cutting_service in object_list %}
+      <li><a href="{% url 'cutting_service_detail' cutting_service.pk %}">{{ cutting_service.cutting_number }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

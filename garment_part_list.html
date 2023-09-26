@@ -1,0 +1,14 @@
+{% extends 'base_generic_ft.html' %}
+
+{% block content %}
+  <h2>Partes de la prenda: {{ garment_type.name }}</h2>
+  <ul>
+    {% for garment_part in garment_parts %}
+      <li>{{ garment_part.name }} - {{ garment_part.area_m2 }} m²</li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'garment_type_detail' garment_type.id %}">Volver a los detalles de la prenda</a>
+{% endblock %}
+
+
+

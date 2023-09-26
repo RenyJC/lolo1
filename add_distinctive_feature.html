@@ -1,0 +1,13 @@
+
+{% extends 'base_generic_ft.html' %}
+
+{% block content %}
+  <form method="POST" id="addDistinctiveFeatureForm">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Agregar Característica Distintiva</button>
+  </form>
+{% endblock %}
+
+
+

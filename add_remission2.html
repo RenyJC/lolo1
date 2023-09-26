@@ -1,0 +1,19 @@
+{% extends 'base_generic_ft.html' %}
+
+{% load bootstrap4 %}
+{% load static %}
+
+{% block content %}
+<body>
+<div class="container mt-5">
+    <h1>Selección de Servicio de Corte</h1>
+    <form method="POST" action="{% url 'add_remission_step2' %}">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+		<button type="button" class="btn btn-primary" style="margin-top: 10px;" onclick="window.location.href='{% url 'add_remission' %}'">Regresar</button>
+        <button type="submit" class="btn btn-primary ml-auto" style="margin-top: 10px;">Siguiente</button>
+		
+    </form>
+</div>
+</body>
+{% endblock %}

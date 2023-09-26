@@ -1,0 +1,34 @@
+{% extends 'base_generic_ft.html' %}
+
+{% block content %}
+<h2 class="mb-4">Detalles de la Remisión</h2>
+
+<p><strong>Número:</strong> {{ remission.number }}</p>
+<p><strong>Tipo de prenda:</strong> {{ remission.garment_type }}</p>
+<p><strong>Cliente:</strong> {{ remission.client }}</p>
+<p><strong>Creado en:</strong> {{ remission.created_at }}</p>
+
+<h3>Detalles de las prendas</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Talla</th>
+            <th>Cantidad</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for detail in remission.size_quantities.all %}
+        <tr>
+            <td>{{ detail.size }}</td>
+            <td>{{ detail.quantity }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<p><strong>Cantidad total:</strong> {{ remission.total_quantity }}</p>
+<p><strong>Valor total COP:</strong> {{ remission.total_value_COP }}</p>
+<div class="text-center">
+  <a href="{% url 'remission_list' %}" class="btn btn-primary">Volver a la lista</a>
+</div>
+{% endblock %}

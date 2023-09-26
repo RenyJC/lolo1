@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Registro de Usuario</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        
+        {% if field.name == "password1" or field.name == "password2" %}
+          <input type="password" class="form-control" id="{{ field.id_for_label }}" name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
+        {% else %}
+          <input type="text" class="form-control" id="{{ field.id_for_label }}" name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
+        {% endif %}
+        
+        {% if field.help_text %}
+          <small class="form-text text-muted">{{ field.help_text }}</small>
+        {% endif %}
+        {% if field.errors %}
+          <div class="invalid-feedback">
+            {{ field.errors.0 }}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Registrarse</button>
+  </form>
+{% endblock %}

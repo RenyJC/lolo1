@@ -1,0 +1,24 @@
+{% extends 'base_generic.html' %}
+<!-- your_app/templates/your_app/size_list.html -->
+{% block content %}
+  <h2>List of Sizes</h2>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Factory Owner</th>
+      <th>Garment Type</th>
+    </tr>
+    {% for size in sizes %}
+    <tr>
+      <td>{{ size.name }}</td>
+      <td>{{ size.factory_owner }}</td>
+      <td>{{ size.garment_type }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
+
+
+
+
+

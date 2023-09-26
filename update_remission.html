@@ -1,0 +1,28 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Actualizar Remisión</h1>
+  <form method="POST">
+    {% csrf_token %}
+    
+    {{ form.as_p }}
+    
+    <h2>Tallas y cantidades</h2>
+    {{ formset.management_form }}
+    <table>
+      {% for form in formset %}
+        <tr>
+          {% for field in form %}
+            <td>{{ field.errors }}
+              {{ field.label_tag }} {{ field }}
+            </td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </table>
+    
+    <button type="submit">Guardar cambios</button>
+  </form>
+  
+  <a href="{% url 'remission_list' %}">Cancelar y volver a la lista de remisiones</a>
+{% endblock %}

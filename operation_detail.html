@@ -1,0 +1,15 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>Detalle de Operación</h1>
+  
+  <p>Nombre: {{ object.name }}</p>
+  <p>Valor COP: {{ object.value_COP }}</p>
+  <p>Nivel de complejidad: {{ object.get_complexity_level_display }}</p>
+<p>Nivel de complejidad: {{ complexity_display }}</p>
+<p>Volumen de trabajo promedio: {{ average_work_volume }}</p>
+
+  
+  <a href="{% url 'operation_edit' object.pk %}">Editar</a>
+  <a href="{% url 'operation_list' %}">Volver a la lista</a>
+{% endblock %}

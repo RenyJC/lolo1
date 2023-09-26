@@ -1,0 +1,12 @@
+{% extends 'base_generic_ft.html' %}
+
+{% block content %}
+  <h2>Lista de Mesas de Corte</h2>
+  <ul>
+    {% for table in tables %}
+      <li>{{ table.id }}: {{ table.total_area_m2 }} m²</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+
+

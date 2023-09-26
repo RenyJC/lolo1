@@ -1,0 +1,43 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <h2 class="text-center">Lista de Operaciones</h2>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="text-nowrap">Nombre</th>
+              <th class="text-nowrap">Valor COP</th>
+              <th class="text-nowrap">Nivel de productividad</th>
+              <th class="text-nowrap">Promedio-operaciones/dia</th>
+              <th class="text-nowrap text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for operation in object_list %}
+            <tr>
+              <td class="text-nowrap">{{ operation.name }}</td>
+              <td class="text-nowrap text-center">{{ operation.value_COP }}</td>
+              <td class="text-nowrap text-center">{{ operation.get_productivity_level_display }}</td>
+              <td class="text-nowrap text-center">{{ operation.average_daily_volume }}</td>
+              <td class="text-nowrap">
+                <a href="{% url 'operation_edit' pk=operation.pk %}">Editar</a> |
+                <a href="{% url 'operation_delete' pk=operation.pk %}">Eliminar</a> |
+                <form action="{% url 'update_productivity_level' operation.id %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-link p-0 border-0">Actualizar-Productividad</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="text-center">
+          <a href="{% url 'operation_create' %}" class="btn btn-primary">Crear nueva operación</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

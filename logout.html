@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Cerrar Sesión{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Cerrar Sesión</h2>
+    <p>¿Estás seguro de que deseas cerrar sesión?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Cerrar Sesión</button>
+    </form>
+</div>
+{% endblock %}

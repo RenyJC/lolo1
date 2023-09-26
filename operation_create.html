@@ -1,0 +1,26 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Agregar nueva operación</h2>
+    
+    <form method="post" class="g-3">
+        {% csrf_token %}
+		<h5>Nombre:</h5>
+        <div class="input-group mb-3">
+		<span class="input-group-text">{{ form.name }}</span>
+             
+        </div>
+		<h5>Valor:</h5>
+        <div class="input-group mb-3">
+		
+		<span class="input-group-text">COP</span>
+             
+			<span class="input-group-text">{{ form.value_COP }}.00</span>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{% url 'operation_list' %}" class="btn btn-secondary">Volver a la lista</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Lista de Tipos de Tela</h1>
+  <ul>
+    {% for fabric_type in fabric_types %}
+	
+      <li>{{ fabric_type.name }} - <a href="{% url 'fabric_type_update' fabric_type.pk %}">Editar</a></li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'fabric_type_create' %}">Crear nuevo tipo de tela</a>
+{% endblock %}

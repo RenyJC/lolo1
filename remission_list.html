@@ -1,0 +1,35 @@
+{% extends 'base_generic_ft.html' %}
+
+{% block content %}
+<h2 class="mb-4">Lista de Remisiones</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Número</th>
+            <th>Tipo de prenda</th>
+            <th>Cliente</th>
+            <th>Creado en</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for remission in remissions %}
+        <tr>
+            <td>{{ remission.number }}</td>
+            <td>{{ remission.garment_type }}</td>
+            <td>{{ remission.client }}</td>
+            <td>{{ remission.created_at }}</td>
+            <td>
+                <a href="{% url 'remission_detail' remission.id %}">Detalles</a> | 
+				 <a href="{% url 'update_remission' remission.id %}">Editar</a> |
+                <a href="{% url 'delete_remission' remission.id %}">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="text-center">
+  <a href="{% url 'add_remission' %}" class="btn btn-primary">Agregar Remision</a>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base_generic_ft.html' %}
+
+{% block content %}
+{% if garment_types %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h2 class="text-center">Lista de Tipos de Prendas</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+			<th>Cliente</th>
+            <th>Código/producto</th>
+            <th>Precio base (COP)</th>
+			<th>Descripción</th
+          </tr>
+        </thead>
+        <tbody>
+          {% for garment_type in garment_types %}
+          <tr>
+            <td>{{ garment_type.name }}</td>
+			<td>{{ garment_type.client }}</td>
+            <td>{{ garment_type.product_code }}</td>
+            <td>{{ garment_type.base_price_COP }}</td>
+			<td>{{ garment_type.description }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% else %}
+<h4 class="text-center">No tienes Tipos de prendas registrados aun.</h4>
+{% endif %}
+
+<div class="text-center">
+  <a href="{% url 'add_garment_type' %}" class="btn btn-primary">Agregar Tipo de Prenda</a>
+</div>
+
+{% endblock %}

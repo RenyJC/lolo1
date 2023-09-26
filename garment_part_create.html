@@ -1,0 +1,13 @@
+{% extends 'base_generic_ft.html' %}
+
+{{% block content %}
+  <h2>Crear nueva parte de prenda</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+  </form>
+  <a href="{% url 'garment_part_list' %}">Cancelar</a>
+{% endblock %}
+
+

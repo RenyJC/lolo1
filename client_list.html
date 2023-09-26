@@ -1,0 +1,48 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+
+{% if clients %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h2 class="text-center">Lista de Clientes</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="text-nowrap">Nombre</th>
+            <th class="text-nowrap text-center">NIT</th>
+            <th class="text-nowrap text-center">Email</th>
+            <th class="text-nowrap text-center">Dirección</th>
+            <th class="text-nowrap text-center">Teléfono</th>
+			<th class="text-nowrap text-center">Acciones</th>
+            <!-- Puedes agregar más columnas si lo deseas -->
+          </tr>
+        </thead>
+        <tbody>
+          {% for client in clients %}
+            <tr>
+              <td class="text-nowrap">{{ client.name }}</td>
+              <td class="text-nowrap">{{ client.NIT }}</td>
+              <td class="text-nowrap">{{ client.email }}</td>
+              <td class="text-nowrap">{{ client.address }}</td>
+              <td class="text-nowrap">{{ client.phone_number }}</td>
+              <!-- Puedes agregar más campos si lo deseas -->
+<td class="text-nowrap"><a href="{% url 'edit_client' client_id=client.id %}">Editar</a> |
+<a href="{% url 'delete_client' client_id=client.id %}">Eliminar</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% else %}
+<h4 class="text-center">No tienes clientes registrados aun.</h4>
+{% endif %}
+
+<div class="text-center">
+  <a href="{% url 'add_client' %}" class="btn btn-primary">Agregar Cliente</a>
+</div>
+
+{% endblock %}

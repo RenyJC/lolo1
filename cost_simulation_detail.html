@@ -1,0 +1,15 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h1 class="mb-4">Detalle de la simulación de costo</h1>
+    <table class="table">
+      <!-- Aquí debes añadir las filas para mostrar cada detalle de la simulación de costo, por ejemplo: -->
+      <tr>
+        <th>Fecha de inicio</th>
+        <td>{{ cost_simulation.start_date }}</td>
+      </tr>
+      <!-- Añade más filas para otros campos -->
+    </table>
+  </div>
+{% endblock %}

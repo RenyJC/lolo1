@@ -1,0 +1,17 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>Eliminar Operación</h1>
+  
+  <p>¿Estás seguro de que quieres eliminar la operación "{{ object.name }}"?</p>
+  
+  <form method="post">
+    {% csrf_token %}
+   <button type="submit" class="btn btn-primary">Eliminar</button>
+	 <button type="submit" class="btn btn-primary"> 
+	<a href="{% url 'operation_list' %}" style="color: inherit; text-decoration: none;">Cancelar</a>
+	</button>
+  </form>
+  
+ 
+{% endblock %}

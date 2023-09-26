@@ -1,0 +1,58 @@
+{% extends 'base_generic.html' %}
+{% block content %}
+<!-- operator_list.html -->
+{% if operators %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h2 class="text-center">Lista de Operarios</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="text-nowrap">Nombre</th>
+            <th class="text-nowrap">Número de Identificación</th>
+            <th class="text-nowrap">Mejor Operación</th>
+            <th class="text-nowrap">Estado</th>
+            <th class="text-nowrap">Cantidad de Arreglos en 15 dias</th>
+			<th class="text-nowrap text-center">Acciones</th>
+
+            <!-- Añade aquí otros encabezados de columnas para otros campos -->
+          </tr>
+        </thead>
+        <tbody>
+          {% for operator in operators %}
+          <tr>
+            <td class="text-nowrap">{{ operator.name }}</td>
+            <td class="text-nowrap text-center">{{ operator.id_number }}</td>
+            <td class="text-nowrap">{{ operator.best_operation }}</td>
+            <td class="text-nowrap">
+    {% if operator.is_active %}
+        Activo
+    {% else %}
+        Inactivo
+    {% endif %}
+</td>
+
+            <td class="text-nowrap text-center">{{ operator.arrangements_count }}</td>
+            <!-- Añade aquí otras celdas para otros campos -->
+			<td class="text-nowrap">
+            <a href="{% url 'edit_operator' operator_id=operator.id %}">Editar</a> |
+            <a href="{% url 'delete_operator' operator_id=operator.id %}">Eliminar</a>
+			</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% else %}
+<h4 class="text-center">No tienes Operarios registrados aun.</h4>
+{% endif %}
+
+<div class="text-center">
+  <a href="{% url 'add_operator' %}" class="btn btn-primary">Agregar Operario</a>
+</div>
+
+{% endblock %}

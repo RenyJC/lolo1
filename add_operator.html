@@ -1,0 +1,35 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<h2 class="mb-4">Agregar Operario</h2>
+
+<form method="post" class="g-3">
+    {% csrf_token %}
+    
+    {% for field in form %}
+<div class="mb-3">
+    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+    
+    {% if field.field.widget.input_type == "checkbox" %}
+        {{ field }}  <!-- Esto renderizará el campo como un checkbox -->
+    {% elif field.field.widget.input_type == "select" %}
+        {{ field }}  <!-- Esto renderizará el campo como un dropdown -->
+    {% else %}
+        <input type="{{ field.field.widget.input_type }}" class="form-control" id="{{ field.id_for_label }}" name="{{ field.html_name }}" value="{{ field.value|default_if_none:'' }}">
+    {% endif %}
+    
+    {% if field.errors %}
+        <div class="alert alert-danger">
+            {{ field.errors }}
+        </div>
+    {% endif %}
+</div>
+{% endfor %}
+
+    
+    <button type="submit" class="btn btn-primary">Agregar Operario</button>
+	<button type="submit" class="btn btn-secondary"> 
+	<a href="{% url 'operator_list' %}" style="color: inherit; text-decoration: none;">Volver a la lista</a>
+	</button>
+</form>
+{% endblock %}

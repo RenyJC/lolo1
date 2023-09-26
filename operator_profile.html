@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Perfil del Operador{% endblock %}
+
+{% block content %}
+    <h2>Bienvenido, {{ profile.user.username }}</h2>
+    <p>Email: {{ profile.user.email }}</p>
+    <!-- Aquí puedes agregar más campos y funcionalidades específicas para Operator -->
+{% endblock %}

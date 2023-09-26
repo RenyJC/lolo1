@@ -1,0 +1,11 @@
+.close-button {
+    border: none;
+    background: none;
+    color: red;
+    cursor: pointer;
+}
+
+#fabric_type_display {
+    font-weight: bold;
+    color: #00aaff;
+}

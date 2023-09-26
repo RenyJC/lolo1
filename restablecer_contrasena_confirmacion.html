@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+  <h2>Restablecimiento de Contraseña</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Restablecer Contraseña</button>
+  </form>
+{% endblock %}

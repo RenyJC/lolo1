@@ -1,0 +1,123 @@
+{% extends 'base_generic.html' %}
+{% block content %}
+{% block title %}Perfil del Propietario de Empresa{% endblock %}
+    <h2>Bienvenid@, {{ profile.user.username }}</h2>
+    <p>Email: {{ profile.user.email }}</p>
+	
+	
+    <!-- Aquí puedes agregar más campos y funcionalidades específicas para FactoryOwner -->
+	<div class="container mt-5">
+    <div class="row">
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    {{ plan.name }}
+                </div>
+	<h3 class="text-center mb-5">Detalles de tu Plan</h3>
+ <ul>
+                        <li>Hasta {{ plan.max_admins }} administradores, para la gestión del sistema.</li>
+                        <li>Registro de hasta {{ plan.max_clients }} clientes.</li>
+                        <li>Registro de hasta {{ plan.max_garment_types }} tipos de prendas, con sus características.</li>
+                        <li>Registro de hasta {{ plan.max_operators }} operarios.</li>
+                        <li>Gestión de hasta {{ plan.max_remissions_per_month }} remisiones por mes.</li>
+<!-- ... y otros detalles del plan -->
+
+                   
+                   
+                        <!-- ... otras características ... -->
+                        {% if plan.basic_reports %}
+                            <li>Reportes básicos.</li>
+                        {% endif %}
+                        {% if plan.advanced_reports %}
+                            <li>Reportes avanzados.</li>
+                        {% endif %}
+                        {% if plan.premium_reports %}
+                            <li>Informes premium con análisis de tendencias.</li>
+							<li>Informes personalizados según las necesidades del dueño de la empresa.</li>
+							<li>Exportación de informes a diferentes formatos (PDF, Excel, etc.).</li>
+                        {% endif %}
+                        {% if plan.basic_simulations %}
+                            <li>Simulaciones básicas.</li>
+                        {% endif %}
+                        {% if plan.advanced_simulations %}
+                            <li>Simulaciones de costos avanzadas.</li>
+							<li>Simulación de rentabilidad.</li>
+							<li>Simulación de eficiencia en la producción.</li>
+                        {% endif %}
+                        {% if plan.basic_financial_management %}
+                            <li>Gestión financiera básica.</li>
+                        {% endif %}
+                        {% if plan.advanced_financial_management %}
+                            <li>Gestión financiera avanzada.</li>
+							<li>Gestión de cuentas por cobrar y pagar.</li>
+                        {% endif %}
+                        {% if plan.basic_payroll_management %}
+                            <li>Gestión de nómina básica.</li>
+                        {% endif %}
+                        {% if plan.advanced_payroll_management %}
+                            <li>Gestión avanzada de nómina.</li>
+							<li>Gestión de bonificaciones y deducciones.</li>
+                        {% endif %}
+                        {% if plan.complete_payroll_management %}
+                            <li>Gestión integral de nómina.</li>
+							<li>Integración con diferentes métodos de pago.</li>
+							<li>Reportes detallados, bonificaciones y deducciones.</li>
+                        {% endif %}
+                        {% if plan.inventory_management %}
+                            <li>Gestión de inventario.</li>
+                        {% endif %}
+                        {% if plan.production_management %}
+                            <li>Gestión de producción.</li>
+                        {% endif %}
+                        {% if plan.basic_remission_management %}
+                            <li>Gestión básica de remisiones.</li>
+                        {% endif %}
+                        {% if plan.advanced_remission_management %}
+                            <li>Gestión avanzada de remisiones.</li>
+                        {% endif %}
+                        {% if plan.premium_remission_management %}
+                            <li>Gestión de remisiones premium con análisis predictivo.</li>
+                        {% endif %}
+                        {% if plan.automations %}
+                            <li>Automatizaciones.</li>
+							<li>Envío automatizado de facturas por correo electrónico y WhatsApp.</li>
+							<li>Recordatorios automatizados para cuentas por cobrar y por pagar.</li>
+							<li>Recordatorios de fechas limites para entrega de remisiones.</li>
+							<li>Recordatorios personalizados.</li>
+                        {% endif %}
+                        {% if plan.basic_support %}
+                            <li>Soporte básico.</li>
+                        {% endif %}
+                        {% if plan.integral_support %}
+                            <li>Soporte integral.</li>
+                        {% endif %}
+                        {% if plan.priority_support %}
+                            <li>Soporte prioritario.</li>
+                        {% endif %}
+                        {% if plan.has_ai_dashboard %}
+                            <li>Dashboard con IA.</li>
+							<li>Visualización gráfica en tiempo real de todos los parámetros medibles.</li>
+							<li>Predicciones Análisis y proyecciones basados en IA.</li>
+                        {% endif %}
+                        {% if plan.real_time_graphics %}
+                            <li>Gráficos en tiempo real.</li>
+                        {% endif %}
+                        {% if plan.expense_management %}
+                            <li>Gestión Premium de gastos.</li>
+                        {% endif %}
+                        {% if plan.invoice_generation %}
+                            <li>Generación de facturas con personalización.</li>
+                        {% endif %}
+                        {% if plan.account_control %}
+                            <li>Control de cuentas.</li>
+                        {% endif %}
+                        {% if plan.detailed_payment_registry %}
+                            <li>Registro detallado de pagos.</li>
+                        {% endif %}
+                    </ul>
+                   
+                </div>
+</div>
+</div>
+{% endblock %}

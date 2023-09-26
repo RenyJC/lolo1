@@ -1,0 +1,11 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2>Eliminar Tipo de Tela</h2>
+<p>¿Estás seguro de que quieres eliminar "{{ object.name }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Sí, eliminar</button>
+</form>
+<a href="{% url 'fabric_type_list' %}">Cancelar</a>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Error al restablecer contraseña</h2>
+    <p>El enlace de restablecimiento de contraseña es inválido o ha caducado. Por favor, solicita un nuevo enlace.</p>
+    <a href="{% url 'restablecer_contrasena_solicitud' %}">Solicitar nuevo enlace de restablecimiento</a>
+</div>
+{% endblock %}
